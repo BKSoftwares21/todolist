@@ -5,60 +5,54 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newTodo, setNewTodo] = useState('');
   const [saving, setSaving] = useState(false);
-
-  function onChange(e) {
-    const value = e.target.value;
-    setNewTodo(value);
-  }
-
-  function addTodo(e) {
-    e.preventDefault();
-    const value = {
-      userId: 3,
-      id: Math.floor(Math.random() * 10000) + 1,
-      title: newTodo,
-      completed: false,
-    };
-
-    setSaving(true);
-    fetch('https://jsonplaceholder.typicode.com/todos', {
-      method: 'POST',
-      body: JSON.stringify(value),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setTodos(todos.concat({ ...result, id: value.id }));
-        setSaving(false);
-      });
-  }
+  const [newTodo, setNewTodo] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await fetch('https://jsonplaceholder.typicode.com/todos').then((response) =>
-        response.json()
-      );
-      setTodos(result.slice(0, 5));
+    // Simulate fetch call to get initial todo items
+    setTimeout(() => {
+      setTodos([
+        { userId: 1, id: 1, title: 'Eat breakfast', completed: false },
+        { userId: 1, id: 2, title: 'Do laundry', completed: false },
+        { userId: 1, id: 3, title: 'Take out the trash', completed: false }
+      ]);
       setLoading(false);
-    }
-    fetchData();
+    }, 1000);
   }, []);
+
+  // Function to remove a todo item by id
+  function removeTodo(id) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
+
+  // Function to handle adding a todo item
+  const addTodo = (e) => {
+    e.preventDefault();
+    setSaving(true);
+    setTimeout(() => {
+      const newId = todos.length ? Math.max(...todos.map((t) => t.id)) + 1 : 1;
+      setTodos([...todos, { userId: 1, id: newId, title: newTodo, completed: false }]);
+      setNewTodo('');
+      setSaving(false);
+    }, 500);
+  };
+
+  // Function to handle input change
+  const onChange = (e) => {
+    setNewTodo(e.target.value);
+  };
 
   return (
     <div className="App">
       <h1 className="header">My todo list</h1>
-      {loading ? 'Loading' : <TodoList todos={todos} />}
+      {loading ? 'Loading' : <TodoList todos={todos} removeHandler={removeTodo} />}
 
       <div className="add-todo-form">
         {saving ? (
           'Saving'
         ) : (
           <form onSubmit={addTodo}>
-            <input type="text" onChange={onChange} />
+            <input type="text" value={newTodo} onChange={onChange} />
             <button type="submit">Add new todo</button>
           </form>
         )}
