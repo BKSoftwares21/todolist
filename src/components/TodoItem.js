@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/TodoItem.module.css';
 
 const TodoItem = ({ todo, removeHandler, updateHandler }) => (
   <div>
