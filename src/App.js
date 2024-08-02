@@ -25,6 +25,18 @@ function App() {
     setTodos(todos.filter((t) => t.id !== id));
   }
 
+  // Function to update a todo item's completed status by id
+  function updateTodo(id) {
+    const newList = todos.map((todoItem) => {
+      if (todoItem.id === id) {
+        const updatedItem = { ...todoItem, completed: !todoItem.completed };
+        return updatedItem;
+      }
+      return todoItem;
+    });
+    setTodos(newList);
+  }
+
   // Function to handle adding a todo item
   const addTodo = (e) => {
     e.preventDefault();
@@ -45,7 +57,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="header">My todo list</h1>
-      {loading ? 'Loading' : <TodoList todos={todos} removeHandler={removeTodo} />}
+      {loading ? 'Loading' : <TodoList todos={todos} removeHandler={removeTodo} updateHandler={updateTodo} />}
 
       <div className="add-todo-form">
         {saving ? (

@@ -1,13 +1,18 @@
 import React from 'react';
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import TodoItem from  '..components/TodoItem';
-import mockData from '../../mockData';
+import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import App from '../App';
 
 describe('<TodoItem /> tests', () => {
-  it('should render todo item properly', () => {
-    render(<TodoItem todo={mockData[0]} />);
-    expect(screen.queryByText(/eat breakfast/i)).toBeInTheDocument();
-    expect(screen.getByTestId('close-btn-1')).toBeInTheDocument();
+  it('todo item should be crossed out after completing', async () => {
+    render(<App />);
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+
+    const checkbox = screen.getByTestId('checkbox-1');
+    userEvent.click(checkbox);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Eat breakfast/i)).toHaveStyle('text-decoration: line-through');
+    });
   });
 });
