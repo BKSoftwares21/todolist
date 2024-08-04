@@ -33,3 +33,16 @@
 .remove-button:hover {
   background-color: #ff1a1a;
 }
+
+.edit-button {
+  margin-left: 8px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}

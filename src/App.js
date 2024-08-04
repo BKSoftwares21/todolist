@@ -37,6 +37,18 @@ function App() {
     setTodos(newList);
   }
 
+  // Function to update a todo item's title by id
+  function editTodoTitle(id, newTitle) {
+    const newList = todos.map((todoItem) => {
+      if (todoItem.id === id) {
+        const updatedItem = { ...todoItem, title: newTitle };
+        return updatedItem;
+      }
+      return todoItem;
+    });
+    setTodos(newList);
+  }
+
   // Function to handle adding a todo item
   const addTodo = (e) => {
     e.preventDefault();
@@ -57,7 +69,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="header">My todo list</h1>
-      {loading ? 'Loading' : <TodoList todos={todos} removeHandler={removeTodo} updateHandler={updateTodo} />}
+      {loading ? 'Loading' : <TodoList todos={todos} removeHandler={removeTodo} updateHandler={updateTodo} editHandler={editTodoTitle} />}
 
       <div className="add-todo-form">
         {saving ? (
