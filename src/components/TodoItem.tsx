@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import styles from '../css/TodoItem.module.css';
+const styles = require ('../css/TodoItem.module.css');
 
-const TodoItem = ({ todo, removeHandler, updateHandler, editHandler }) => {
+interface TodoItemProps { 
+  todo: {id:string ,title:string, completed: boolean } , 
+  removeTodo: (id:string)=> void, 
+  updateTodo:(id:string)=> string, 
+  editTodoTitle: (id:string, newTitle:string) => string
+}
+
+const TodoItem = ({ todo, removeTodo, updateTodo, editTodoTitle }: TodoItemProps) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
 
   const handleEditClick = () => {
     if (editMode) {
-      editHandler(todo.id, newTitle);
+      editTodoTitle(todo.id, newTitle);
     }
     setEditMode(!editMode);
   };
@@ -15,7 +22,7 @@ const TodoItem = ({ todo, removeHandler, updateHandler, editHandler }) => {
   return (
     <div className={styles['todo-item']}>
       {editMode ? (
-        <input
+        <input title= 'title'
           type="text"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
@@ -28,11 +35,11 @@ const TodoItem = ({ todo, removeHandler, updateHandler, editHandler }) => {
           {todo.title}
         </span>
       )}
-      <input
+      <input title='checkbox'
         className={styles['checkbox']}
         type="checkbox"
         checked={todo.completed}
-        onChange={() => updateHandler(todo.id)}
+        onChange={() => updateTodo(todo.id)}
         data-testid={`checkbox-${todo.id}`}
       />
       <button
@@ -45,7 +52,7 @@ const TodoItem = ({ todo, removeHandler, updateHandler, editHandler }) => {
       <button
         className={styles['remove-button']}
         data-testid={`close-btn-${todo.id}`}
-        onClick={() => removeHandler(todo.id)}
+        onClick={() => removeTodo(todo.id)}
       >
         &times;
       </button>
