@@ -10,7 +10,7 @@ export interface TodoItemProps {
   todo: Todo , 
   removeTodo: (id:string)=> void, 
   updateTodo:(id:string)=> void, 
-  editTodoTitle: (id:string, newTitle:string) => string
+  editTodoTitle: (id:string, newTitle:string) => void
 }
 
 const TodoItem = ({ todo, removeTodo, updateTodo, editTodoTitle }: TodoItemProps) => {

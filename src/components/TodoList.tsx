@@ -3,11 +3,16 @@ import TodoItem from './TodoItem';
 import { TodoItemProps } from './TodoItem';
 import { Todo } from './TodoItem';
 
+interface TodoListProps{
+  todos: Todo[],
+  removeTodo: (id:string)=> void, 
+  updateTodo:(id:string)=> void, 
+  editTodoTitle: (id:string, newTitle:string) => void
+}
 
-
-const TodoList = ({ removeTodo, updateTodo, editTodoTitle }: TodoItemProps) => (
+const TodoList = ({ todos, removeTodo, updateTodo, editTodoTitle }: TodoListProps) => (
   <div>
-    {todo.map((todo: Todo) => (
+    {todos.map((todo: Todo) => (
       <TodoItem
         key={todo.id}
         todo={todo}

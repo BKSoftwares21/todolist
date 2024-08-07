@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="App">
     <h1 className="header">My Todo List</h1>
-    {loading ? 'Loading' : <TodoList todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} editTodotitle={editTodoTitle} />}
+    {loading ? 'Loading' : <TodoList todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} editTodoTitle={editTodoTitle} />}
 
     <div className="add-todo-form">
       {saving ? (
