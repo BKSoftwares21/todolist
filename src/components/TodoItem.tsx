@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 const styles = require ('../css/TodoItem.module.css');
 
-interface TodoItemProps { 
-  todo: {id:string ,title:string, completed: boolean } , 
+export interface Todo {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+export interface TodoItemProps { 
+  todo: Todo , 
   removeTodo: (id:string)=> void, 
-  updateTodo:(id:string)=> string, 
+  updateTodo:(id:string)=> void, 
   editTodoTitle: (id:string, newTitle:string) => string
 }
 
