@@ -6,6 +6,7 @@ import { TodoItemProps } from './components/TodoItem';
 
 
 
+
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState<string>('');

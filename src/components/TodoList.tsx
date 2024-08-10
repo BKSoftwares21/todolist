@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import { TodoItemProps } from './TodoItem';
 import { Todo } from './TodoItem';
+const styles = require ('../css/TodoItem.module.css');
 
 interface TodoListProps{
   todos: Todo[],
